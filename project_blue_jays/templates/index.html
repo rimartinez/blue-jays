@@ -1,0 +1,28 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <!--link rel="stylesheet" href="{% static 'mystyles.css' %}"-->  
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+<body style="background-color: #244D87;">
+
+  <div class="container-fluid">
+      <ul class="nav" style="background-color: #204377;">
+          <li class="nav-item">
+          <a class="nav-link link-light" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link link-light" href="/teams">Teams</a>
+          </li>
+      </ul>
+
+      {% block content %}
+      {% endblock %}
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+{% extends "index.html" %}
+
+{% block title %}
+  MLB Teams
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="row" style="padding-left: 110px; padding-right: 110px;">
+        <div class="col-lg-12">
+            <h4 style="color:white;">Teams</h4>
+        </div>
+        <div class="col-lg-6">
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                  <tr>
+                    <th scope="col">AL East</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">Pct</th>
+                    <th scope="col">GB</th>
+                    <th scope="col">L10</th>
+                    <th scope="col">DIFF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for team in al_east %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
+                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                </div>
+                            </td>
+                            <td>{{team.leagueRecord.wins}}</td>
+                            <td>{{team.leagueRecord.losses}}</td>
+                            <td>{{team.leagueRecord.pct}}</td>
+                            <td>{{team.gamesBack}}</td>
+                            <td>0</td>
+                            <td>{{team.runDifferential}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                  <tr>
+                    <th scope="col">NL East</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">Pct</th>
+                    <th scope="col">GB</th>
+                    <th scope="col">L10</th>
+                    <th scope="col">DIFF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for team in nl_east %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
+                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                </div>
+                            </td>
+                            <td>{{team.leagueRecord.wins}}</td>
+                            <td>{{team.leagueRecord.losses}}</td>
+                            <td>{{team.leagueRecord.pct}}</td>
+                            <td>{{team.gamesBack}}</td>
+                            <td>0</td>
+                            <td>{{team.runDifferential}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                  <tr>
+                    <th scope="col">AL Central</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">Pct</th>
+                    <th scope="col">GB</th>
+                    <th scope="col">L10</th>
+                    <th scope="col">DIFF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for team in al_central %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
+                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                </div>
+                            </td>
+                            <td>{{team.leagueRecord.wins}}</td>
+                            <td>{{team.leagueRecord.losses}}</td>
+                            <td>{{team.leagueRecord.pct}}</td>
+                            <td>{{team.gamesBack}}</td>
+                            <td>0</td>
+                            <td>{{team.runDifferential}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                  <tr>
+                    <th scope="col">NL Central</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">Pct</th>
+                    <th scope="col">GB</th>
+                    <th scope="col">L10</th>
+                    <th scope="col">DIFF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for team in nl_central %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
+                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                </div>
+                            </td>
+                            <td>{{team.leagueRecord.wins}}</td>
+                            <td>{{team.leagueRecord.losses}}</td>
+                            <td>{{team.leagueRecord.pct}}</td>
+                            <td>{{team.gamesBack}}</td>
+                            <td>0</td>
+                            <td>{{team.runDifferential}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                  <tr>
+                    <th scope="col">AL West</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">Pct</th>
+                    <th scope="col">GB</th>
+                    <th scope="col">L10</th>
+                    <th scope="col">DIFF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for team in al_west %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
+                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                </div>
+                            </td>
+                            <td>{{team.leagueRecord.wins}}</td>
+                            <td>{{team.leagueRecord.losses}}</td>
+                            <td>{{team.leagueRecord.pct}}</td>
+                            <td>{{team.gamesBack}}</td>
+                            <td>0</td>
+                            <td>{{team.runDifferential}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                  <tr>
+                    <th scope="col">NL West</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">Pct</th>
+                    <th scope="col">GB</th>
+                    <th scope="col">L10</th>
+                    <th scope="col">DIFF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for team in nl_west %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
+                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                </div>
+                            </td>
+                            <td>{{team.leagueRecord.wins}}</td>
+                            <td>{{team.leagueRecord.losses}}</td>
+                            <td>{{team.leagueRecord.pct}}</td>
+                            <td>{{team.gamesBack}}</td>
+                            <td>0</td>
+                            <td>{{team.runDifferential}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-12">
+            <h4 style="color:white;">News</h4>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
