@@ -8,18 +8,22 @@
   {% bootstrap_css %}
   {% bootstrap_javascript %}
 </head>
-<body style="background-color: #244D87;">
-
-  <div class="container-fluid">
-      <ul class="nav" style="background-color: #204377;">
-          <li class="nav-item">
-          <a class="nav-link link-light" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link link-light" href="/teams">Teams</a>
-          </li>
-      </ul>
-
+<body style="background-color: #244D87; max-width: 1200px; margin: auto;">
+  <div class="container">
+      <div class="nav" style="background-color: #204377;">
+          <div style="display: inherit; align-items: center;">
+              <img src="{% static '/homebase-logo.png' %}" style="height: 30px; width: 30px; border-radius: 50%; overflow: hidden;"/> 
+              <a class="nav-link link-light" style="padding: 5px;" href="/">HOMEBASE</a>
+          </div>
+          <div style="margin-left: auto;">
+              <div style="display: inline-block;">
+                  <a class="nav-link link-light" href="/">Teams</a>
+              </div>
+              <div style="display: inline-block">
+                  <a class="nav-link link-light" href="/teams">Leaderboards</a>
+              </div>
+          </div>
+      </div>
       {% block content %}
       {% endblock %}
   </div>
