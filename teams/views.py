@@ -2,18 +2,27 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 import requests
+from django.conf import settings
+from datetime import datetime
+
+TEAM_HITTER_HEADERS = settings.TEAM_HITTER_HEADERS
+TEAM_PITCHER_HEADERS = settings.TEAM_PITCHER_HEADERS
+PLAYER_PITCHER_HEADERS = settings.PLAYER_PITCHER_HEADERS
+PLAYER_HITTER_HEADERS = settings.PLAYER_HITTER_HEADERS
 
 # Create your views here.
 
 BASE_URL = "https://statsapi.mlb.com"
+MLB_NEWS_URL = "https://dapi.cms.mlbinfra.com/v2/content/en-us/sel-mlb-news-list"
 
 
 def home(request):
-    # response = requests.get(f"{BASE_URL}/api/v1/teams?sportId=1")
     response = requests.get(f"{BASE_URL}/api/v1/standings?leagueId=103,104")
     teams = response.json()["records"]
     template = loader.get_template("home.html")
+    news = get_mlb_news()
     context = filter_teams(teams)
+    context["news_display"] = news
     return HttpResponse(template.render(context, request))
 
 
@@ -42,44 +51,65 @@ def filter_teams(teams):
     return context
 
 
-# def teams(request):
-#     response = requests.get(f"{BASE_URL}/api/v1/teams?sportId=1")
-#     teams = response.json()["teams"]
-#     template = loader.get_template("teams.html")
-#     context = {"teams": teams}
-#     return HttpResponse(template.render(context, request))
-
-
-def team(request, team_id):
+def team(request, team_id, position):
     response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}/roster")
     roster = response.json()["roster"]
     template = loader.get_template("team.html")
 
-    pitchers = []
-    hitters = []
+    headers = TEAM_PITCHER_HEADERS if position == "pitcher" else TEAM_HITTER_HEADERS
+
+    players = []
     for player in roster:
-        print("PLATER>>", player)
-        if player["position"]["type"].lower() == "pitcher":
-            pitchers.append(player)
-        else:
-            hitters.append(player)
+        if position == "pitcher" and player["position"]["type"].lower() == "pitcher":
+            stats = get_player_stats(player["person"]["id"], position)
+            players.append(stats)
+        elif position == "hitters" and player["position"]["type"].lower() != "pitcher":
+            stats = get_player_stats(player["person"]["id"], position)
+            players.append(stats)
 
     context = {
-        "pitchers": pitchers,
-        "hitters": hitters,
+        "players": players,
+        "headers": headers,
         "team_id": team_id,
+        "position": position,
     }
     return HttpResponse(template.render(context, request))
 
 
-def player(request, person_id):
+def get_player_stats(person_id, position):
     response = requests.get(
         f"{BASE_URL}/api/v1/people/{person_id}?hydrate=stats(group=[hitting,pitching,fielding],type=[yearByYear])"
     )
-    person = response.json()["people"][0]
-    get_career_batting_info(person)
+    player_stats = response.json()["people"][0]
+    # print("PLAYER >", player_stats)
+    # player_stats["so_percentage"] = (
+    #     player_stats["stats"][-1]["splits"][-1]["stat"]["strikeOuts"]
+    #     / player_stats["stats"][-1]["splits"][-1]["stat"]["atBats"]
+    # ) * 100
+
+    stat_type = "pitching" if position == "pitcher" else "hitting"
+    for stat in player_stats["stats"]:
+        if stat["group"]["displayName"] == stat_type:
+            player_stats["table_stats"] = stat["splits"]
+            break
+    return player_stats
+
+
+def player(request, person_id, team_id, position):
+
+    team_response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}")
+    team = team_response.json()["teams"][0]
+    stats = get_player_stats(person_id, position)
     template = loader.get_template("player.html")
-    context = {"info": person}
+    context = {
+        "player_info": stats,
+        "team_info": team,
+        "position": position,
+        "headers": PLAYER_HITTER_HEADERS
+        if position == "hitters"
+        else PLAYER_PITCHER_HEADERS,
+    }
+    print("STATSS >>", stats)
     return HttpResponse(template.render(context, request))
 
 
@@ -128,3 +158,24 @@ def get_career_batting_info(person):
             + person["career_sacflies"]
         )
     )
+
+
+def get_mlb_news():
+    response = requests.get(MLB_NEWS_URL)
+    news_list = response.json()["items"][:4]
+    news_display = []
+    for news in news_list:
+        news_display.append(
+            {
+                "headline": news["headline"],
+                "created_by": news["createdBy"],
+                "content_date": datetime.strptime(
+                    news["contentDate"].split("T")[0], "%Y-%m-%d"
+                ).strftime("%B %d, %Y"),
+                "img_url": news["thumbnail"]["templateUrl"].replace(
+                    "{formatInstructions}", "t_16x9/t_w1024/"
+                ),
+                "slug": news["slug"],
+            }
+        )
+    return news_display

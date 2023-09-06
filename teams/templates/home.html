@@ -27,10 +27,10 @@
                 <tbody>
                     {% for team in al_east %}
                         <tr>
-                            <td>
+                            <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
-                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                      <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <a href="{% url 'team' team_id=team.team.id position='hitters' %}" >{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
@@ -58,13 +58,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                     {% for team in nl_east %}
                         <tr>
-                            <td>
+                            <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
-                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
@@ -75,7 +74,6 @@
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
-                  </tr>
                 </tbody>
             </table>
         </div>
@@ -94,13 +92,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                     {% for team in al_central %}
                         <tr>
-                            <td>
+                            <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
-                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
@@ -111,7 +108,6 @@
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
-                  </tr>
                 </tbody>
             </table>
         </div>
@@ -129,13 +125,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                     {% for team in nl_central %}
                         <tr>
-                            <td>
+                            <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
-                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
@@ -146,7 +141,6 @@
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
-                  </tr>
                 </tbody>
             </table>
         </div>
@@ -165,13 +159,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                     {% for team in al_west %}
                         <tr>
-                            <td>
+                            <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
-                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
@@ -182,7 +175,6 @@
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
-                  </tr>
                 </tbody>
             </table>
         </div>
@@ -200,13 +192,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                     {% for team in nl_west %}
                         <tr>
-                            <td>
+                            <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="height: 20px;"/> 
-                                    <a href="team/{{team.team.id}}/roster">{{team.team.name}}</a>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
@@ -217,7 +208,6 @@
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
-                  </tr>
                 </tbody>
             </table>
         </div>
@@ -225,45 +215,20 @@
         <div class="col-lg-12">
             <h4 style="color:white;">News</h4>
         </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+        {% for news in news_display %}
+            <div class="col-lg-3">
+                <div class="card">
+                    <img src="{{news.img_url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        <a href="https://www.mlb.com/news/{{news.slug}}" style="text-decoration: none; color: #244D87">
+                          {{news.headline}}
+                        </a>
+                      </h6>
+                      <p class="card-text">{{news.created_by}} &#x2022 {{news.content_date}}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}

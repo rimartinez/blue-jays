@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-#zp&0r+qy#jluiz93%(54p9z1)deli@(85+yyd9p&3=*8ox$zb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.14']
+ALLOWED_HOSTS = ["192.168.0.14"]
 
 
 # Application definition
@@ -127,3 +127,77 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+TEAM_PITCHER_HEADERS = [
+    "Pos",
+    "#",
+    "Pitcher",
+    "Age",
+    "T",
+    "IP",
+    "ERA",
+    "SO",
+    "BB",
+    "SO%",
+    "BB%",
+    "HR/9",
+    "OPS",
+]
+TEAM_HITTER_HEADERS = [
+    "Pos",
+    "#",
+    "Player",
+    "Age",
+    "B",
+    "T",
+    "PA",
+    "H",
+    "2B",
+    "3B",
+    "HR",
+    "SB",
+    "SO%",
+    "BB%",
+    "AVG",
+    "OBP",
+    "OPS",
+]
+
+PLAYER_HITTER_HEADERS = [
+    "Year",
+    "Team",
+    "G",
+    "PA",
+    "AB",
+    "R",
+    "H",
+    "2B",
+    "3B",
+    "HR",
+    "RBI",
+    "SB",
+    "BB",
+    "SO",
+    "OBP",
+    "SLG",
+    "OPS",
+]
+
+PLAYER_PITCHER_HEADERS = [
+    "Year",
+    "Team",
+    "G",
+    "IP",
+    "W",
+    "L",
+    "SV",
+    "ERA",
+    "WHIP",
+    "H",
+    "R",
+    "SO",
+    "BB",
+    "HR/9",
+    "OPS",
+]
