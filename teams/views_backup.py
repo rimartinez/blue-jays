@@ -57,44 +57,31 @@ def filter_teams(teams):
     return context
 
 
-def team(request, team_id):
+def team(request, team_id, position):
     response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}/roster")
     roster = response.json()["roster"]
     template = loader.get_template("team.html")
-    # headers = TEAM_PITCHER_HEADERS if position == "pitcher" else TEAM_HITTER_HEADERS
+    headers = TEAM_PITCHER_HEADERS if position == "pitcher" else TEAM_HITTER_HEADERS
 
     team_response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}")
     team = team_response.json()["teams"][0]
 
-    pitchers = []
-    hitters = []
-    out_fielders = []
-    in_fielders = []
+    players = []
     for player in roster:
-        info_response = requests.get(
-            f"{BASE_URL}/api/v1/people/{player['person']['id']}"
-        )
+        if position == "pitcher" and player["position"]["type"].lower() == "pitcher":
+            stats = get_player_stats(player["person"]["id"], position)
+            players.append(stats)
+        elif position == "hitters" and player["position"]["type"].lower() != "pitcher":
+            stats = get_player_stats(player["person"]["id"], position)
+            players.append(stats)
 
-        info = info_response.json()["people"][0]
-        if info["primaryPosition"]["type"] == "Pitcher":
-            pitchers.append(info)
-        elif info["primaryPosition"]["type"] == "Hitter":
-            hitters.append(info)
-        elif info["primaryPosition"]["type"] == "Infielder":
-            in_fielders.append(info)
-        elif info["primaryPosition"]["type"] == "Outfielder":
-            out_fielders.append(info)
-
-    print("HITTERS >>>", hitters)
+    print("teaM >>", team)
     context = {
-        "player_groups": [
-            {"position": "Pitchers", "players": pitchers},
-            {"position": "Hitters", "players": hitters},
-            {"position": "In Fielders", "players": in_fielders},
-            {"position": "Out Fielders", "players": out_fielders},
-        ],
+        "players": players,
+        "headers": headers,
         "team_id": team_id,
         "team_name": team["name"],
+        "position": position,
     }
     return HttpResponse(template.render(context, request))
 
@@ -102,7 +89,6 @@ def team(request, team_id):
 def get_player_stats(person_id, position):
     response = requests.get(
         f"{BASE_URL}/api/v1/people/{person_id}?hydrate=stats(group=[hitting,pitching,fielding],type=[yearByYear])"
-        # f"{BASE_URL}/api/v1/people/{person_id}"
     )
     player_stats = response.json()["people"][0]
     # print("PLAYER >", player_stats)
@@ -208,7 +194,11 @@ def leaderboard(request):
 
     response = requests.get(
         f"{BASE_URL}/api/v1/stats/leaders?leaderCategories=strikeouts,battingAverage,homeRuns"
+        # f"{BASE_URL}/api/v1/stats/leaders?leaderCategories=homeRuns"
     )
-    context = {"stat_list": response.json()["leagueLeaders"]}
+
+    stat_list = response.json()["leagueLeaders"]
+    context = {"stat_list": stat_list}
+
     template = loader.get_template("leaderboard.html")
     return HttpResponse(template.render(context, request))

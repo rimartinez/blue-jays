@@ -13,99 +13,47 @@
                 <div style="padding: 10px;">
                     <img src="https://www.mlbstatic.com/team-logos/{{team_id}}.svg" style="height: 50px; width: 50px; border-radius: 50%; overflow: hidden; background-color: white;"/> 
                 </div>
-                <h4 style="color: white; padding: 10px;">Team Name</h4>
-                <div class="btn-group" role="group" style="margin-left: auto; height: 50%;">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnradio1">Hitters</label>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Pitchers</label>
-                </div>
+                <h5 style="color: white; padding: 10px;">{{team_name}}</h5>
             </div>
         </div>
-        <table class="table table-sm" style="background-color: white; font-size: 80%;">
-            <thead style="color: white; background-color: #3E9FCA;">
-                <tr style="text-align: center;">
-                    {% for header in headers %}
-                        {% if header == "Player" %}
-                            <th style="text-align: left;">Player</th>
-                        {% else %}
-                            <th>{{header}}</th>
-                        {% endif %}        
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for player in players %}
-                    <tr style="vertical-align: middle; text-align: center;">
-                        {% if position == "hitters" %}
+        {% for group in player_groups %}
+            <h6 style="color: white; margin: 0;">{{group.position}}</h6>
+            <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                <thead style="color: white; background-color: #3E9FCA;">
+                    <tr style="text-align: center;">
+                        <th>Pos</th>
+                        <th>#</th>
+                        <th style="text-align: left;">Player</th>
+                        <th>Age</th>
+                        <th>B / T</th>
+                        <th>Ht</th>
+                        <th>Wt</th>
+                        <th>DOB</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in group.players %}
+                        <tr style="vertical-align: middle; text-align: center;">
                             <td>{{player.primaryPosition.abbreviation}}</td>
                             <td>{{player.primaryNumber}}</td>
-                            <td style="padding-right: 0; text-align: left;">
+                            <td style="padding-right: 0; text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.id}}.png" style="width: 40px;"/>
-                                    <a href="/player/{{player.id}}/{{team_id}}/hitters">{{player.lastFirstName}}</a>
+                                    <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.id}}.png" style="width: 30px;"/>
+                                    <a style="text-decoration: none; font-weight: bold;" href="/player/{{player.id}}/{{team_id}}/hitters">{{player.lastFirstName}}</a>
                                 </div>
                             </td>
                             <td>{{player.currentAge}}</td>
-                            <td>{{player.batSide.code}}</td>
-                            <td>{{player.pitchHand.code}}</td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.plateAppearances|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.hits|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.doubles|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.triples|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.homeRuns|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.stolenBases|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>{{player.so_percentage}}</td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.baseOnBalls|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.avg|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.obp|default:"0" }}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with player.stats.1.splits|last as last %}
-                                    {{ last.stat.ops|default:"-" }}
-                                {% endwith %}
-                            </td>
-                        {% endif %}
-
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                            <td>{{player.batSide.code}} / {{player.pitchHand.code}}</td>
+                            <td>{{player.height}}</td>
+                            <td>{{player.weight}}</td>
+                            <td>{{player.birthDate}}</td>
+                        </tr>
+                    {% empty %}
+                        <tr style="text-align: center;"><td colspan="8">No Data Available</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
     </div>
 
 {% endblock %}

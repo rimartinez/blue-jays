@@ -29,15 +29,21 @@
                         <tr>
                             <td style="text-align: left; width: 50%;">
                                 <div>
-                                      <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
-                                    <a href="{% url 'team' team_id=team.team.id position='hitters' %}" >{{team.team.name}}</a>
+                                      <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
+                                    <a href="{% url 'team' team_id=team.team.id %}" >{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
                             <td>{{team.leagueRecord.losses}}</td>
                             <td>{{team.leagueRecord.pct}}</td>
                             <td>{{team.gamesBack}}</td>
-                            <td>0</td>
+                            <td>
+                                {% for record in team.records.splitRecords %}
+                                    {% if record.type == 'lastTen'  %}
+                                        {{record.wins}} - {{record.losses}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
@@ -62,15 +68,21 @@
                         <tr>
                             <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
-                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
+                                    <a href="/team/{{team.team.id}}/roster">{{team.team.name}}</a>
                                 </div>
                             </td>
                             <td>{{team.leagueRecord.wins}}</td>
                             <td>{{team.leagueRecord.losses}}</td>
                             <td>{{team.leagueRecord.pct}}</td>
                             <td>{{team.gamesBack}}</td>
-                            <td>0</td>
+                            <td>
+                                {% for record in team.records.splitRecords %}
+                                    {% if record.type == 'lastTen'  %}
+                                        {{record.wins}} - {{record.losses}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
@@ -96,7 +108,7 @@
                         <tr>
                             <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
                                     <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
@@ -104,7 +116,13 @@
                             <td>{{team.leagueRecord.losses}}</td>
                             <td>{{team.leagueRecord.pct}}</td>
                             <td>{{team.gamesBack}}</td>
-                            <td>0</td>
+                            <td>
+                                {% for record in team.records.splitRecords %}
+                                    {% if record.type == 'lastTen'  %}
+                                        {{record.wins}} - {{record.losses}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
@@ -129,7 +147,7 @@
                         <tr>
                             <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
                                     <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
@@ -137,7 +155,13 @@
                             <td>{{team.leagueRecord.losses}}</td>
                             <td>{{team.leagueRecord.pct}}</td>
                             <td>{{team.gamesBack}}</td>
-                            <td>0</td>
+                            <td>
+                                {% for record in team.records.splitRecords %}
+                                    {% if record.type == 'lastTen'  %}
+                                        {{record.wins}} - {{record.losses}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
@@ -163,7 +187,7 @@
                         <tr>
                             <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
                                     <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
@@ -171,7 +195,13 @@
                             <td>{{team.leagueRecord.losses}}</td>
                             <td>{{team.leagueRecord.pct}}</td>
                             <td>{{team.gamesBack}}</td>
-                            <td>0</td>
+                            <td>
+                                {% for record in team.records.splitRecords %}
+                                    {% if record.type == 'lastTen'  %}
+                                        {{record.wins}} - {{record.losses}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
@@ -196,7 +226,7 @@
                         <tr>
                             <td style="text-align: left; width: 50%;">
                                 <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; margin-right: 10px;"/> 
+                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
                                     <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
                                 </div>
                             </td>
@@ -204,7 +234,13 @@
                             <td>{{team.leagueRecord.losses}}</td>
                             <td>{{team.leagueRecord.pct}}</td>
                             <td>{{team.gamesBack}}</td>
-                            <td>0</td>
+                            <td>
+                                {% for record in team.records.splitRecords %}
+                                    {% if record.type == 'lastTen'  %}
+                                        {{record.wins}} - {{record.losses}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{team.runDifferential}}</td>
                         </tr>
                     {% endfor %}
@@ -217,15 +253,18 @@
         </div>
         {% for news in news_display %}
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card" style="min-height: 300px;">
                     <img src="{{news.img_url}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <p class="card-title" style="font-weight: 600;">
-                        <a href="https://www.mlb.com/news/{{news.slug}}" style="text-decoration: none; color: #244D87">
-                          {{news.headline}}
-                        </a>
-                      </p>
-                      <p class="card-text" style="font-size: small;">{{news.created_by}} &#x2022 {{news.content_date}}</p>
+                        <p class="card-title" style="font-weight: 600;">
+                            <a href="https://www.mlb.com/news/{{news.slug}}" style="text-decoration: none; color: #244D87">
+                                {{news.headline}}
+                            </a>
+                            </p>
+                        <div style="position: absolute; bottom: 10px;">
+                            <p class="card-text" style="font-size: small;">{{news.created_by}} &#x2022 {{news.content_date}}</p>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
