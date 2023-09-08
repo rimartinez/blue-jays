@@ -1,6 +1,7 @@
-<!-- {% load static %} -->
+{% load static %}
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" type="text/css" href='{% static "/css/main.css" %}'>
 <head>
   <title>{% block title %}{% endblock %}</title>
   <!--link rel="stylesheet" href="{% static 'mystyles.css' %}"-->  
@@ -8,12 +9,12 @@
   {% bootstrap_css %}
   {% bootstrap_javascript %}
 </head>
-<body style="background-color: #244D87; max-width: 1200px; margin: auto; height:1100px;">
+<body class="project-font" style="background-color: #244D87; max-width: 1200px; margin: auto; height:1300px;">
   <div class="container">
       <div class="nav" style="background-color: #204377;">
           <div style="display: inherit; align-items: center;">
               <img src="{% static '/homebase-logo.png' %}" style="height: 30px; width: 30px; border-radius: 50%; overflow: hidden;"/> 
-              <a class="nav-link link-light" style="padding: 5px;" href="/">HOMEBASE</a>
+              <a class="nav-link link-light" style="padding: 5px; font-weight: 500;" href="/">HOMEBASE</a>
           </div>
           <div style="margin-left: auto;">
               <div style="display: inline-block;">

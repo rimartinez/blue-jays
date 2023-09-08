@@ -17,7 +17,7 @@
                 <table class="table table-sm" style="background-color: white; font-size: 75%;">
                     <thead style="color: white; background-color: #3E9FCA;">
                       <tr>
-                        <th scope="col">Rank</th>
+                        <th scope="col" style="text-align: center;">Rank</th>
                         <th scope="col">Player</th>
                         <th scope="col">Team</th>
                         <th scope="col">Count</th>
@@ -25,16 +25,18 @@
                     </thead>
                     <tbody>
                         {% for player in stat.leaders %}
-                            <tr>
-                                <td>{{player.rank}}</td>
+                            <tr style="vertical-align: middle;">
+                                <td style="text-align: center;">{{player.rank}}</td>
                                 <td>
                                     <div>
-                                        <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.person.id}}.png" style="width: 25px;"/>
-                                        {{player.person.fullName}}
+                                        <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.person.id}}.png" style="width: 30px;"/>
+                                        <a style="text-decoration: none; vertical-align: middle;" href="{% url 'player' person_id=player.person.id team_id=player.team.id %}">{{player.person.fullName}}</a>
                                     </div>
                                 </td>
                                 <td>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{player.team.id}}.svg" style="height: 20px; width: 20px; border-radius: 50%; overflow: hidden; background-color: white;"/> 
+                                    <a href="{% url 'team' team_id=player.team.id %}" >
+                                        <img src="https://www.mlbstatic.com/team-logos/{{player.team.id}}.svg" style="height: 20px; width: 20px; border-radius: 50%; overflow: hidden; background-color: white;"/> 
+                                    </a>
                                 </td>
                                 <td>{{player.value}}</td>
                             </tr>

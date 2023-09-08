@@ -11,242 +11,47 @@
         <div class="col-lg-12">
             <h4 style="color:white;">Teams</h4>
         </div>
-        <div class="col-lg-6">
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
-                  <tr>
-                    <th scope="col">AL East</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pct</th>
-                    <th scope="col">GB</th>
-                    <th scope="col">L10</th>
-                    <th scope="col">DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for team in al_east %}
-                        <tr>
-                            <td style="text-align: left; width: 50%;">
-                                <div>
-                                      <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                    <a href="{% url 'team' team_id=team.team.id %}" >{{team.team.name}}</a>
-                                </div>
-                            </td>
-                            <td>{{team.leagueRecord.wins}}</td>
-                            <td>{{team.leagueRecord.losses}}</td>
-                            <td>{{team.leagueRecord.pct}}</td>
-                            <td>{{team.gamesBack}}</td>
-                            <td>
-                                {% for record in team.records.splitRecords %}
-                                    {% if record.type == 'lastTen'  %}
-                                        {{record.wins}} - {{record.losses}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>{{team.runDifferential}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-6">
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
-                  <tr>
-                    <th scope="col">NL East</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pct</th>
-                    <th scope="col">GB</th>
-                    <th scope="col">L10</th>
-                    <th scope="col">DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for team in nl_east %}
-                        <tr>
-                            <td style="text-align: left; width: 50%;">
-                                <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                    <a href="/team/{{team.team.id}}/roster">{{team.team.name}}</a>
-                                </div>
-                            </td>
-                            <td>{{team.leagueRecord.wins}}</td>
-                            <td>{{team.leagueRecord.losses}}</td>
-                            <td>{{team.leagueRecord.pct}}</td>
-                            <td>{{team.gamesBack}}</td>
-                            <td>
-                                {% for record in team.records.splitRecords %}
-                                    {% if record.type == 'lastTen'  %}
-                                        {{record.wins}} - {{record.losses}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>{{team.runDifferential}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="col-lg-6">
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
-                  <tr>
-                    <th scope="col">AL Central</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pct</th>
-                    <th scope="col">GB</th>
-                    <th scope="col">L10</th>
-                    <th scope="col">DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for team in al_central %}
-                        <tr>
-                            <td style="text-align: left; width: 50%;">
-                                <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
-                                </div>
-                            </td>
-                            <td>{{team.leagueRecord.wins}}</td>
-                            <td>{{team.leagueRecord.losses}}</td>
-                            <td>{{team.leagueRecord.pct}}</td>
-                            <td>{{team.gamesBack}}</td>
-                            <td>
-                                {% for record in team.records.splitRecords %}
-                                    {% if record.type == 'lastTen'  %}
-                                        {{record.wins}} - {{record.losses}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>{{team.runDifferential}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-6">
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
-                  <tr>
-                    <th scope="col">NL Central</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pct</th>
-                    <th scope="col">GB</th>
-                    <th scope="col">L10</th>
-                    <th scope="col">DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for team in nl_central %}
-                        <tr>
-                            <td style="text-align: left; width: 50%;">
-                                <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
-                                </div>
-                            </td>
-                            <td>{{team.leagueRecord.wins}}</td>
-                            <td>{{team.leagueRecord.losses}}</td>
-                            <td>{{team.leagueRecord.pct}}</td>
-                            <td>{{team.gamesBack}}</td>
-                            <td>
-                                {% for record in team.records.splitRecords %}
-                                    {% if record.type == 'lastTen'  %}
-                                        {{record.wins}} - {{record.losses}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>{{team.runDifferential}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="col-lg-6">
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
-                  <tr>
-                    <th scope="col">AL West</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pct</th>
-                    <th scope="col">GB</th>
-                    <th scope="col">L10</th>
-                    <th scope="col">DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for team in al_west %}
-                        <tr>
-                            <td style="text-align: left; width: 50%;">
-                                <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
-                                </div>
-                            </td>
-                            <td>{{team.leagueRecord.wins}}</td>
-                            <td>{{team.leagueRecord.losses}}</td>
-                            <td>{{team.leagueRecord.pct}}</td>
-                            <td>{{team.gamesBack}}</td>
-                            <td>
-                                {% for record in team.records.splitRecords %}
-                                    {% if record.type == 'lastTen'  %}
-                                        {{record.wins}} - {{record.losses}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>{{team.runDifferential}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-6">
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
-                  <tr>
-                    <th scope="col">NL West</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pct</th>
-                    <th scope="col">GB</th>
-                    <th scope="col">L10</th>
-                    <th scope="col">DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for team in nl_west %}
-                        <tr>
-                            <td style="text-align: left; width: 50%;">
-                                <div>
-                                    <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                    <a href="/team/{{team.team.id}}/roster/hitters">{{team.team.name}}</a>
-                                </div>
-                            </td>
-                            <td>{{team.leagueRecord.wins}}</td>
-                            <td>{{team.leagueRecord.losses}}</td>
-                            <td>{{team.leagueRecord.pct}}</td>
-                            <td>{{team.gamesBack}}</td>
-                            <td>
-                                {% for record in team.records.splitRecords %}
-                                    {% if record.type == 'lastTen'  %}
-                                        {{record.wins}} - {{record.losses}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>{{team.runDifferential}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        {% for division in divisions %}
+            <div class="col-lg-6">
+                <table class="table table-sm" style="background-color: white; font-size: 80%;">
+                    <thead style="color: white; background-color: #3E9FCA;">
+                      <tr>
+                        <th scope="col">{{division.name}}</th>
+                        <th scope="col">W</th>
+                        <th scope="col">L</th>
+                        <th scope="col">Pct</th>
+                        <th scope="col">GB</th>
+                        <th scope="col">L10</th>
+                        <th scope="col">DIFF</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in division.teams %}
+                            <tr>
+                                <td style="text-align: left; width: 50%;">
+                                    <div>
+                                          <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
+                                        <a style="text-decoration: none;" href="{% url 'team' team_id=team.team.id %}" >{{team.team.name}}</a>
+                                    </div>
+                                </td>
+                                <td>{{team.leagueRecord.wins}}</td>
+                                <td>{{team.leagueRecord.losses}}</td>
+                                <td>{{team.leagueRecord.pct}}</td>
+                                <td>{{team.gamesBack}}</td>
+                                <td>
+                                    {% for record in team.records.splitRecords %}
+                                        {% if record.type == 'lastTen'  %}
+                                            {{record.wins}} - {{record.losses}}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{team.runDifferential}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
 
         <div class="col-lg-12">
             <h4 style="color:white;">News</h4>

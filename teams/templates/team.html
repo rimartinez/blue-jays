@@ -35,11 +35,11 @@
                     {% for player in group.players %}
                         <tr style="vertical-align: middle; text-align: center;">
                             <td>{{player.primaryPosition.abbreviation}}</td>
-                            <td>{{player.primaryNumber}}</td>
+                            <td style="color: #3E9FCA; font-weight: 600;">{{player.primaryNumber}}</td>
                             <td style="padding-right: 0; text-align: left; width: 50%;">
                                 <div>
                                     <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.id}}.png" style="width: 30px;"/>
-                                    <a style="text-decoration: none; font-weight: bold;" href="/player/{{player.id}}/{{team_id}}/hitters">{{player.lastFirstName}}</a>
+                                    <a style="text-decoration: none; font-weight: bold; vertical-align: middle;" href="/player/{{player.id}}/{{team_id}}">{{player.lastFirstName}}</a>
                                 </div>
                             </td>
                             <td>{{player.currentAge}}</td>
