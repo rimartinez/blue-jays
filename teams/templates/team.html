@@ -11,15 +11,15 @@
         <div class="row">
             <div class="col" style="padding: 10px; display: flex;">
                 <div style="padding: 10px;">
-                    <img src="https://www.mlbstatic.com/team-logos/{{team_id}}.svg" style="height: 50px; width: 50px; border-radius: 50%; overflow: hidden; background-color: white;"/> 
+                    <img class="team-logo" src="https://www.mlbstatic.com/team-logos/{{team_id}}.svg"/> 
                 </div>
                 <h5 style="color: white; padding: 10px;">{{team_name}}</h5>
             </div>
         </div>
         {% for group in player_groups %}
             <h6 style="color: white; margin: 0;">{{group.position}}</h6>
-            <table class="table table-sm" style="background-color: white; font-size: 80%;">
-                <thead style="color: white; background-color: #3E9FCA;">
+            <table class="table table-sm">
+                <thead class="header-text">
                     <tr style="text-align: center;">
                         <th>Pos</th>
                         <th>#</th>
@@ -39,7 +39,7 @@
                             <td style="padding-right: 0; text-align: left; width: 50%;">
                                 <div>
                                     <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.id}}.png" style="width: 30px;"/>
-                                    <a style="text-decoration: none; font-weight: bold; vertical-align: middle;" href="/player/{{player.id}}/{{team_id}}">{{player.lastFirstName}}</a>
+                                    <a style="font-weight: bold; vertical-align: middle;" href="/player/{{player.id}}/{{team_id}}">{{player.lastFirstName}}</a>
                                 </div>
                             </td>
                             <td>{{player.currentAge}}</td>

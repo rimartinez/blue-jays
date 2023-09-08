@@ -96,6 +96,7 @@ def team(request, team_id):
         ],
         "team_id": team_id,
         "team_name": team["name"],
+        "team_abbreviation": team["abbreviation"],
     }
     return HttpResponse(template.render(context, request))
 

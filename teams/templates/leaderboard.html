@@ -8,14 +8,14 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-lg-12">
-            <h4 style="color:white;">Leaderboards</h4>
+        <div class="col-lg-12 page-header">
+            <h5 class="page-title">Leaderboards</h5>
         </div>
         {% for stat in stat_list %}
             <div class="col-lg-4">
                 <p style="color:white; margin: 0; font-size: small;">{{stat.leaderCategory|capfirst}} - {{stat.statGroup|title}}</p>
                 <table class="table table-sm" style="background-color: white; font-size: 75%;">
-                    <thead style="color: white; background-color: #3E9FCA;">
+                    <thead class="header-text">
                       <tr>
                         <th scope="col" style="text-align: center;">Rank</th>
                         <th scope="col">Player</th>
@@ -30,12 +30,12 @@
                                 <td>
                                     <div>
                                         <img src="https://content.mlb.com/images/headshots/current/60x60/{{player.person.id}}.png" style="width: 30px;"/>
-                                        <a style="text-decoration: none; vertical-align: middle;" href="{% url 'player' person_id=player.person.id team_id=player.team.id %}">{{player.person.fullName}}</a>
+                                        <a style="vertical-align: middle;" href="{% url 'player' person_id=player.person.id team_id=player.team.id %}">{{player.person.fullName}}</a>
                                     </div>
                                 </td>
                                 <td>
                                     <a href="{% url 'team' team_id=player.team.id %}" >
-                                        <img src="https://www.mlbstatic.com/team-logos/{{player.team.id}}.svg" style="height: 20px; width: 20px; border-radius: 50%; overflow: hidden; background-color: white;"/> 
+                                        <img class="player-table-img" src="https://www.mlbstatic.com/team-logos/{{player.team.id}}.svg"> 
                                     </a>
                                 </td>
                                 <td>{{player.value}}</td>
