@@ -192,7 +192,6 @@ def leaderboard(request):
         f"{BASE_URL}/api/v1/stats/leaders?leaderCategories=strikeouts,battingAverage,homeRuns"
     )
     context = {"stat_list": response.json()["leagueLeaders"]}
-    print("CONTETN>>", context)
     template = loader.get_template("leaderboard.html")
     return HttpResponse(template.render(context, request))
 
