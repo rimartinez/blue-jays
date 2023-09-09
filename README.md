@@ -22,35 +22,35 @@ This is a simple Django project that displays:
 1. Install pyenv virtualenv
    for MacOS using homebrew
    ```
-   $ brew install pyenv-virutalenv
+   brew install pyenv-virutalenv
    ```
    for Windows
    [Link for steps](https://github.com/pyenv/pyenv-virtualenv)
    
 2. Install python version using pyenv
    ```
-   $ pyenv install 3.11.0
+   pyenv install 3.11.0
    ```
 3. Create virtual environment
    ```
-   $ pyenv virtualenv 3.11.0 env1
+   pyenv virtualenv 3.11.0 env1
    ```
 4. Download project files
    ```
-   $ git clone git@github.com:rimartinez/blue-jays.git
+   git clone git@github.com:rimartinez/blue-jays.git
    ```
    ```
-   $ cd blue-jays
+   cd blue-jays
    ```
 5. Install dependency
    ```
-   $ pip install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
 ## How to run
 1. Run django project
    ```
-   $ python manage.py runserver 0:8000
+   python manage.py runserver 0:8000
    ```
 
 
