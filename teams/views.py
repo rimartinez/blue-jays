@@ -4,11 +4,14 @@ from django.http import HttpResponse
 import requests
 from django.conf import settings
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+import inflect
 
-TEAM_HITTER_HEADERS = settings.TEAM_HITTER_HEADERS
-TEAM_PITCHER_HEADERS = settings.TEAM_PITCHER_HEADERS
+P = inflect.engine()
+
 PLAYER_PITCHER_HEADERS = settings.PLAYER_PITCHER_HEADERS
 PLAYER_HITTER_HEADERS = settings.PLAYER_HITTER_HEADERS
+DIVISION_NAMES = settings.DIVISION_NAMES
 
 
 # Create your views here.
@@ -36,56 +39,78 @@ def filter_teams(teams):
     nl_west = []
     for team in teams:
         if team["division"]["id"] == 200:
-            al_west = team["teamRecords"]
+            al_west = {
+                "name": "AL West",
+                "team_info": team["teamRecords"],
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
         elif team["division"]["id"] == 201:
-            al_east = team["teamRecords"]
+            al_east = {
+                "name": "AL East",
+                "team_info": team["teamRecords"],
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
         elif team["division"]["id"] == 202:
-            al_central = team["teamRecords"]
+            al_central = {
+                "name": "AL Central",
+                "team_info": team["teamRecords"],
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
         elif team["division"]["id"] == 203:
-            nl_west = team["teamRecords"]
+            nl_west = {
+                "name": "NL West",
+                "team_info": team["teamRecords"],
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
         elif team["division"]["id"] == 204:
-            nl_east = team["teamRecords"]
+            nl_east = {
+                "name": "NL East",
+                "team_info": team["teamRecords"],
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
         elif team["division"]["id"] == 205:
-            nl_central = team["teamRecords"]
+            nl_central = {
+                "name": "NL Central",
+                "team_info": team["teamRecords"],
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
 
     context = {
-        "divisions": [
-            {"name": "AL East", "teams": al_east},
-            {"name": "NL East", "teams": nl_east},
-            {"name": "AL Central", "teams": al_central},
-            {"name": "NL Central", "teams": nl_central},
-            {"name": "AL West", "teams": al_west},
-            {"name": "NL West", "teams": nl_west},
-        ],
+        "divisions": [al_east, nl_east, al_central, nl_central, al_west, nl_west],
     }
     return context
 
 
-def team(request, team_id):
+def team(request, team_id, league_id, division_id):
     response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}/roster")
     roster = response.json()["roster"]
     template = loader.get_template("team.html")
-    team_response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}")
-    team = team_response.json()["teams"][0]
 
     pitchers = []
     hitters = []
     out_fielders = []
     in_fielders = []
-    for player in roster:
-        info_response = requests.get(
-            f"{BASE_URL}/api/v1/people/{player['person']['id']}"
-        )
+    exec_list = []
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        for player in roster:
+            exec_list.append(executor.submit(get_people_info, player["person"]["id"]))
 
-        info = info_response.json()["people"][0]
-        if info["primaryPosition"]["type"] == "Pitcher":
-            pitchers.append(info)
-        elif info["primaryPosition"]["type"] == "Hitter":
-            hitters.append(info)
-        elif info["primaryPosition"]["type"] == "Infielder":
-            in_fielders.append(info)
-        elif info["primaryPosition"]["type"] == "Outfielder":
-            out_fielders.append(info)
+        for exec in exec_list:
+            info = exec.result()
+            if info["primaryPosition"]["type"] == "Pitcher":
+                pitchers.append(info)
+            elif info["primaryPosition"]["type"] == "Hitter":
+                hitters.append(info)
+            elif info["primaryPosition"]["type"] == "Infielder":
+                in_fielders.append(info)
+            elif info["primaryPosition"]["type"] == "Outfielder":
+                out_fielders.append(info)
 
     context = {
         "player_groups": [
@@ -95,10 +120,14 @@ def team(request, team_id):
             {"position": "Out Fielders", "players": out_fielders},
         ],
         "team_id": team_id,
-        "team_name": team["name"],
-        "team_abbreviation": team["abbreviation"],
     }
+    get_team_standing(team_id, league_id, division_id, context)
     return HttpResponse(template.render(context, request))
+
+
+def get_people_info(id):
+    info_response = requests.get(f"{BASE_URL}/api/v1/people/{id}")
+    return info_response.json()["people"][0]
 
 
 def get_player_stats(person_id):
@@ -166,3 +195,27 @@ def leaderboard(request):
     context = {"stat_list": response.json()["leagueLeaders"]}
     template = loader.get_template("leaderboard.html")
     return HttpResponse(template.render(context, request))
+
+
+def get_team_standing(team_id, league_id, division_id, context):
+    response = requests.get(f"{BASE_URL}/api/v1/standings?leagueId={league_id}")
+    record_list = response.json()["records"]
+    for record_data in record_list:
+        if record_data["division"]["id"] == division_id:
+            for team in record_data["teamRecords"]:
+                if team["team"]["id"] == team_id:
+                    record = get_team_division_standing(team, division_id)
+                    context[
+                        "standing"
+                    ] = f"{P.ordinal(team['divisionRank'])} in {DIVISION_NAMES[record['division']['name']]}"
+                    context[
+                        "record"
+                    ] = f"{record['wins']} - {record['losses']} ({record['pct']})"
+                    context["gamesback"] = team["divisionGamesBack"]
+                    context["team_name"] = team["team"]["name"]
+
+
+def get_team_division_standing(team, division_id):
+    for record in team["records"]["divisionRecords"]:
+        if record["division"]["id"] == division_id:
+            return record

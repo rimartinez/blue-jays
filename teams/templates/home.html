@@ -26,12 +26,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                        {% for team in division.teams %}
+                        {% for team in division.team_info %}
                             <tr>
                                 <td style="text-align: left; width: 50%;">
                                     <div>
                                         <img src="https://www.mlbstatic.com/team-logos/{{team.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/> 
-                                        <a href="{% url 'team' team_id=team.team.id %}" >{{team.team.name}}</a>
+                                        <a href="{% url 'team' team_id=team.team.id league_id=division.league_id division_id=division.division_id %}" >{{team.team.name}}</a>
                                     </div>
                                 </td>
                                 <td>{{team.leagueRecord.wins}}</td>

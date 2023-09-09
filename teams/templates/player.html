@@ -10,33 +10,33 @@
             <div style="display: flex;">
                 <div style="text-align: center;">
                     <img src="https://content.mlb.com/images/headshots/current/60x60/{{player_info.id}}@3x.png"  style="width: 50%;"/> 
-
                 </div>
-                <div class="player-title-div">
+                <div class="title-div">
                     <h5 style="color: white; margin: 0;">{{player_info.fullName}}</h5>
                     <h6 style="color: #3E9FCA;">{{player_info.primaryPosition.abbreviation}} 
-                        <a style="color: white !important;" href="/team/{{team_info.id}}/roster">{{team_info.name}}</a></h6>
+                        <a style="color: white !important;" href="/team/{{team_info.id}}/roster">{{team_info.name}}</a>
+                    </h6>
                 </div>
                 <div style="margin-left: auto; margin-top: 35px;">
                     <div style="display: inline-block; margin-right: 15px;">
-                        <h6 class="player-title-header">B / T</h6>
-                        <h6 style="color: white;">{{player_info.batSide.code}} / {{player_info.pitchHand.code}}</h6>
+                        <p class="player-title-header">B / T</p>
+                        <p style="color: white; font-size: smaller;">{{player_info.batSide.code}} / {{player_info.pitchHand.code}}</p>
                     </div>
                     <div style="display: inline-block; margin-right: 15px;">
-                        <h6 class="player-title-header">Age</h6>
-                        <h6 style="color: white;">{{player_info.currentAge}}</h6>
+                        <p class="player-title-header">Age</p>
+                        <p style="color: white; font-size: smaller;">{{player_info.currentAge}}</p>
                     </div>
                     <div style="display: inline-block; margin-right: 15px;">
-                        <h6 class="player-title-header">H</h6>
-                        <h6 style="color: white;">{{player_info.height}}</h6>
+                        <p class="player-title-header">H</p>
+                        <p style="color: white; font-size: smaller;">{{player_info.height}}</p>
                     </div>
                     <div style="display: inline-block; margin-right: 15px;">
-                        <h6 class="player-title-header">W</h6>
-                        <h6 style="color: white;">{{player_info.weight}}</h6>
+                        <p class="player-title-header">W</p>
+                        <p style="color: white; font-size: smaller;">{{player_info.weight}}</p>
                     </div>
                     <div style="display: inline-block; margin-right: 15px;">
-                        <h6 class="player-title-header">Drafted</h6>
-                        <h6 style="color: white;">{{player_info.draftYear|default:"-"}}</h6>
+                        <p class="player-title-header">Drafted</p>
+                        <p style="color: white; font-size: smaller;">{{player_info.draftYear|default:"-"}}</p>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <td style="text-align: left;">
                             <div>
                                 <img src="https://www.mlbstatic.com/team-logos/{{stat.team.id}}.svg" style="width: 20px; height: 20px; margin-right: 10px;"/>
-                                <a style="font-weight: bold;">{{stat.team.name}}</a>
+                                {{stat.team.name}}
                             </div>
                         </td>
                         <td>{{stat.stat.gamesPlayed}}</td>

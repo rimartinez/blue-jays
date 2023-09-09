@@ -13,7 +13,18 @@
                 <div style="padding: 10px;">
                     <img class="team-logo" src="https://www.mlbstatic.com/team-logos/{{team_id}}.svg"/> 
                 </div>
-                <h5 style="color: white; padding: 10px;">{{team_name}}</h5>
+                <div style="margin-top: 15px;">
+                    <h6 style="color: white; margin: 0; font-weight: 600;">{{team_name}}</h6>
+                    <div style="display: inline-block;">
+                        <p class="player-title-header">{{standing}}&nbsp;</p>
+                    </div>
+                    <div style="display: inline-block;">
+                        <p style="color: white; font-size: smaller;">{{record}}&nbsp;&#x2022&nbsp;</p>
+                    </div>
+                    <div style="display: inline-block;">
+                        <p style="color: white; font-size: smaller;">{{gamesback}}</p>
+                    </div>
+                </div>
             </div>
         </div>
         {% for group in player_groups %}

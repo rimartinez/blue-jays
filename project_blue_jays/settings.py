@@ -201,3 +201,12 @@ PLAYER_PITCHER_HEADERS = [
     "HR/9",
     "OPS",
 ]
+
+DIVISION_NAMES = {
+    "American League West": "AL West",
+    "American League East": "AL East",
+    "American League Central": "AL Central",
+    "National League West": "NL West",
+    "National League East": "NL East",
+    "National League Central": "NL Central",
+}
