@@ -69,6 +69,8 @@ Note: always activate virutal environment before running the project
    ```
    firewall-cmd --reload
    ```
+3. Access the project in the browser  
+   http://127.0.0.1:8000/ - the ip address would depend on where you run the project. It could be your machine or a different one. 
 
 
 ## Improvements
