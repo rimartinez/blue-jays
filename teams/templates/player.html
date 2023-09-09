@@ -8,13 +8,14 @@
     <div class="container">
         <div class="row">
             <div style="display: flex;">
-                <div style="text-align: center;">
-                    <img src="https://content.mlb.com/images/headshots/current/60x60/{{player_info.id}}@3x.png"  style="width: 50%;"/> 
+                <div style="position: relative; margin-left: 15px;">
+                    <img src="https://content.mlb.com/images/headshots/current/60x60/{{player_info.id}}@3x.png"  
+                        style="width: 80px; height: 80px; position: absolute; bottom: 0;"/> 
                 </div>
-                <div class="title-div">
+                <div class="title-div" style="margin-left: 100px;">
                     <h5 style="color: white; margin: 0;">{{player_info.fullName}}</h5>
                     <h6 style="color: #3E9FCA;">{{player_info.primaryPosition.abbreviation}} 
-                        <a style="color: white !important;" href="/team/{{team_info.id}}/roster">{{team_info.name}}</a>
+                        <a style="color: white !important;" href="{% url 'team' team_id=team_info.id league_id=team_info.league.id division_id=team_info.division.id %}">{{team_info.name}}</a>
                     </h6>
                 </div>
                 <div style="margin-left: auto; margin-top: 35px;">

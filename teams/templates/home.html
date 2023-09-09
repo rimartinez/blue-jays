@@ -34,9 +34,9 @@
                                         <a href="{% url 'team' team_id=team.team.id league_id=division.league_id division_id=division.division_id %}" >{{team.team.name}}</a>
                                     </div>
                                 </td>
-                                <td>{{team.leagueRecord.wins}}</td>
-                                <td>{{team.leagueRecord.losses}}</td>
-                                <td>{{team.leagueRecord.pct}}</td>
+                                <td>{{team.division_wins}}</td>
+                                <td>{{team.division_losses}}</td>
+                                <td>{{team.division_pct}}</td>
                                 <td>{{team.gamesBack}}</td>
                                 <td>
                                     {% for record in team.records.splitRecords %}

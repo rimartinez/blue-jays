@@ -30,63 +30,6 @@ def home(request):
     return HttpResponse(template.render(context, request))
 
 
-def filter_teams(teams):
-    al_east = []
-    nl_east = []
-    al_central = []
-    nl_central = []
-    al_west = []
-    nl_west = []
-    for team in teams:
-        if team["division"]["id"] == 200:
-            al_west = {
-                "name": "AL West",
-                "team_info": team["teamRecords"],
-                "league_id": team["league"]["id"],
-                "division_id": team["division"]["id"],
-            }
-        elif team["division"]["id"] == 201:
-            al_east = {
-                "name": "AL East",
-                "team_info": team["teamRecords"],
-                "league_id": team["league"]["id"],
-                "division_id": team["division"]["id"],
-            }
-        elif team["division"]["id"] == 202:
-            al_central = {
-                "name": "AL Central",
-                "team_info": team["teamRecords"],
-                "league_id": team["league"]["id"],
-                "division_id": team["division"]["id"],
-            }
-        elif team["division"]["id"] == 203:
-            nl_west = {
-                "name": "NL West",
-                "team_info": team["teamRecords"],
-                "league_id": team["league"]["id"],
-                "division_id": team["division"]["id"],
-            }
-        elif team["division"]["id"] == 204:
-            nl_east = {
-                "name": "NL East",
-                "team_info": team["teamRecords"],
-                "league_id": team["league"]["id"],
-                "division_id": team["division"]["id"],
-            }
-        elif team["division"]["id"] == 205:
-            nl_central = {
-                "name": "NL Central",
-                "team_info": team["teamRecords"],
-                "league_id": team["league"]["id"],
-                "division_id": team["division"]["id"],
-            }
-
-    context = {
-        "divisions": [al_east, nl_east, al_central, nl_central, al_west, nl_west],
-    }
-    return context
-
-
 def team(request, team_id, league_id, division_id):
     response = requests.get(f"{BASE_URL}/api/v1/teams/{team_id}/roster")
     roster = response.json()["roster"]
@@ -187,12 +130,69 @@ def get_mlb_news():
     return news_display
 
 
-def leaderboard(request):
+def filter_teams(teams):
+    al_east = []
+    nl_east = []
+    al_central = []
+    nl_central = []
+    al_west = []
+    nl_west = []
+    for team in teams:
+        if team["division"]["id"] == 200:
+            al_west = {
+                "name": "AL West",
+                "team_info": get_division_record(team["teamRecords"], 200),
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
+        elif team["division"]["id"] == 201:
+            al_east = {
+                "name": "AL East",
+                "team_info": get_division_record(team["teamRecords"], 201),
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
+        elif team["division"]["id"] == 202:
+            al_central = {
+                "name": "AL Central",
+                "team_info": get_division_record(team["teamRecords"], 202),
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
+        elif team["division"]["id"] == 203:
+            nl_west = {
+                "name": "NL West",
+                "team_info": get_division_record(team["teamRecords"], 203),
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
+        elif team["division"]["id"] == 204:
+            nl_east = {
+                "name": "NL East",
+                "team_info": get_division_record(team["teamRecords"], 204),
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
+        elif team["division"]["id"] == 205:
+            nl_central = {
+                "name": "NL Central",
+                "team_info": get_division_record(team["teamRecords"], 205),
+                "league_id": team["league"]["id"],
+                "division_id": team["division"]["id"],
+            }
 
+    context = {
+        "divisions": [al_east, nl_east, al_central, nl_central, al_west, nl_west],
+    }
+    return context
+
+
+def leaderboard(request):
     response = requests.get(
         f"{BASE_URL}/api/v1/stats/leaders?leaderCategories=strikeouts,battingAverage,homeRuns"
     )
     context = {"stat_list": response.json()["leagueLeaders"]}
+    print("CONTETN>>", context)
     template = loader.get_template("leaderboard.html")
     return HttpResponse(template.render(context, request))
 
@@ -219,3 +219,15 @@ def get_team_division_standing(team, division_id):
     for record in team["records"]["divisionRecords"]:
         if record["division"]["id"] == division_id:
             return record
+
+
+def get_division_record(team_records, division_id):
+    for team in team_records:
+        for division_record in team["records"]["divisionRecords"]:
+            if division_record["division"]["id"] == division_id:
+                team["division_wins"] = division_record["wins"]
+                team["division_losses"] = division_record["losses"]
+                team["division_pct"] = division_record["pct"]
+                break
+
+    return team_records
