@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: blue-jays-django
+    command: python manage.py runserver 0:80
+    ports: 
+      - 8000:80
+    volumes:
+      - .:/app
