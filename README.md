@@ -69,16 +69,19 @@ Note: always activate virutal environment before running the project
    ```
    firewall-cmd --reload
    ```
+3. Access the project in the browser  
+   http://127.0.0.1:8000/ - the ip address would depend on where you run the project. It could be your machine or a different one. 
 
 
 ## Improvements
-* Create a database to store information and not call mlb api everytime  
-&nbsp;- It will have faster response time if database is local  
-&nbsp;- Thought there might be an issue with this as it needs to get updated everytime for records, standings and stats leaderboard to display updated information
+* Create a database to store information and not call mlb api everytime
+   - It will have faster response time if database is local
+   - There are times that MLB api is responding slow so local database will remove that.
+   - Thought there might be an issue with this as it needs to get updated everytime for records, standings and stats leaderboard to display updated information
 * Put all styles in css file
 * Add error handlings. A few are:
-  - MLB api returns 404 or other status code
-  - Checking of keys in the dictionary returned by API
+   - MLB api returns 404 or other status code
+   - Checking of keys in the dictionary returned by API
 * Can add caching in api for faster response time.
 
 ## Notes
@@ -86,4 +89,5 @@ Note: always activate virutal environment before running the project
 * For the player page, I displayed all players in all positions instead of having a toggle for hitter and pitcher. I thought that it would be easier for the user if they can see every player in one page
 * A bit confused on how stats leaderboard api works because in "homerun" category there is "hitting", "pitching" and "catching" stat group.
   I just displayed all 3 stat group in 3 separate tables
+* Also noticed there are times the mlb api is responding a bit slow
 
